@@ -1,0 +1,10 @@
+{
+  "name": "aesir",
+  "displayName": "Agentic Aesir",
+  "description": "Lean Norse-named specialist team for Claude Code: 9 cost-tiered subagents, a delegation playbook, and a project setup skill.",
+  "author": { "name": "Brandon Pelotto", "url": "https://github.com/bpelotto" },
+  "homepage": "https://github.com/bpelotto/Agentic_Aesir",
+  "repository": "https://github.com/bpelotto/Agentic_Aesir",
+  "license": "MIT",
+  "keywords": ["agents", "subagents", "workflow", "dotnet"]
+}
