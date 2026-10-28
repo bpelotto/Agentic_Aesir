@@ -1,0 +1,14 @@
+{
+  "name": "agentic-aesir",
+  "description": "Marketplace for the Agentic Aesir plugin",
+  "owner": { "name": "Brandon Pelotto", "url": "https://github.com/bpelotto" },
+  "plugins": [
+    {
+      "name": "aesir",
+      "source": "./",
+      "description": "9 cost-tiered subagents plus /aesir:playbook and /aesir:setup",
+      "category": "workflow",
+      "tags": ["agents", "dotnet", "copilot"]
+    }
+  ]
+}

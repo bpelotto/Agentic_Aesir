@@ -1,206 +1,121 @@
 # Agentic Aesir
 
-A VS Code Copilot Chat workspace pre-configured with a full team of AI agents — each named after a Norse mythology figure, each with a single focused role. Together they operate as a company: Odin routes, specialists execute.
+A lean, Norse-named specialist team for Claude Code, packaged as a plugin. Nine subagents on cost tiers, a playbook that says when to use them, and a setup skill that scaffolds any project in one command. It also generates GitHub Copilot agents from the same source, so one roster serves both tools.
 
-This repository is a **harness and playground**. Fork it, swap out agent definitions, extend the roster, or drop the agent files into your own project. It is also a personal learning environment and portfolio-building platform, documenting the journey of building with agentic AI from the ground up.
+Install it once per machine and every project gets the team. No framework, no runtime, no dependencies: agents are Markdown files with frontmatter.
 
----
+## Install
 
-## Why This Exists
+In Claude Code (desktop app, CLI, or VS Code extension):
 
-| Goal | What it means in practice |
-|------|--------------------------|
-| Learn AI | Explore agentic systems, LLMs, prompt engineering, and AI workflows hands-on |
-| Build a portfolio | Create documented, working examples of agents, pipelines, and automation |
-| Learn new technologies | Stay current with emerging concepts in software, AI, and science |
-| Create software prototypes | Build real, usable tools and apps that could become products |
-| Build a brand | Blog about the journey, share knowledge, and grow an audience |
-
----
-
-## Getting Started
-
-**Prerequisites:**
-- [VS Code](https://code.visualstudio.com/)
-- [GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) extension with Copilot Chat enabled
-- A GitHub Copilot subscription (Individual, Business, or Enterprise)
-
-**Setup:**
-
-1. Clone or fork this repository:
-   ```bash
-   git clone https://github.com/your-username/Agentic_Aesir.git
-   cd Agentic_Aesir
-   ```
-
-2. Open the folder in VS Code:
-   ```bash
-   code .
-   ```
-
-3. Open Copilot Chat (`Ctrl+Alt+I` / `Cmd+Alt+I`) and switch to **Agent mode**.
-
-4. Invoke an agent by selecting it from the agent picker, or start with Odin and describe your goal:
-   ```
-   @Odin I want to build a REST API for tracking blog posts. Where do we start?
-   ```
-
-Odin will assess the request, identify which specialists are needed, and produce a delegation plan.
-
----
-
-## How It Works
-
-### Agents as Files
-
-Each agent is defined as a `.agent.md` file in `.github/agents/`. The file contains:
-- A system prompt that defines the agent's role, scope, and behavior
-- Instructions for when to delegate and what to produce
-- Constraints that prevent scope creep into other agents' domains
-
-To add a new agent, create a new `.agent.md` file in `.github/agents/` and define its role. It will be available in Copilot Chat immediately.
-
-### Shared Team Context
-
-`.github/copilot-instructions.md` provides workspace-level context visible to all agents: the company mission, the full roster, guiding principles, and cross-cutting conventions. Agents read this file as shared background knowledge.
-
-### Delegation Model
-
-Odin is the entry point for complex or multi-domain requests. He breaks tasks into sub-tasks and identifies which specialists to involve. Specialists execute within their domain and hand off to adjacent agents when the work crosses boundaries.
-
-**Example pipelines:**
-
-| Workflow | Agent sequence |
-|----------|---------------|
-| Engineering feature | Tyr → Vidar → Sigurd → Thor / Magni / Njord → Baldur → Ull / Modi → Loki → Heimdall → Var |
-| Content piece | Huginn → Muninn → Saga / Bragi → Idunn → Rán → Hermod |
-| New project kick-off | Odin → Frigga → Tyr → Mimir → Angrboda → Vidar |
-
----
-
-## The Agent Roster
-
-### Executive Layer
-
-| Agent | Role |
-|-------|------|
-| **Odin** | Chief Orchestrator / Executive Assistant — primary entry point for any multi-faceted or unclear request |
-| **Frigga** | Project Manager / Chief of Staff |
-
-### Product & Strategy
-
-| Agent | Role |
-|-------|------|
-| **Tyr** | Product Owner |
-| **Mimir** | Research Analyst / Knowledge Gatherer |
-| **Skadi** | Data Analyst |
-
-### Engineering
-
-| Agent | Role |
-|-------|------|
-| **Vidar** | Software Architect |
-| **Sigurd** | Engineering Manager |
-| **Thor** | C# / Backend Engineer |
-| **Magni** | Frontend / UI Engineer |
-| **Njord** | Database / Data Engineer |
-| **Aegir** | DevOps / Infrastructure |
-| **Heimdall** | CI/CD Expert |
-| **Baldur** | Code Reviewer |
-| **Loki** | Security Expert |
-
-### QA
-
-| Agent | Role |
-|-------|------|
-| **Var** | QA Lead / Test Strategist |
-| **Ull** | Unit Test Creator |
-| **Modi** | Integration Test Creator |
-| **Fenrir** | Performance & Chaos Engineer |
-
-### Content & Creative
-
-| Agent | Role |
-|-------|------|
-| **Bragi** | Copywriter |
-| **Saga** | Blogger / Content Creator |
-| **Idunn** | Editor |
-| **Rán** | SEO Expert |
-| **Freya** | Graphic Designer |
-| **Eir** | UX Designer |
-| **Kvasir** | Technical Writer |
-
-### Research & Growth
-
-| Agent | Role |
-|-------|------|
-| **Huginn** | News & Trend Gatherer |
-| **Muninn** | Content Strategist / Topic Generator |
-| **Hermod** | Social Media & Communications |
-
-### Specialized
-
-| Agent | Role |
-|-------|------|
-| **Jormungandr** | API / Integration Specialist |
-| **Angrboda** | Risk & Dependency Analyst |
-| **Völva** | AI / ML Specialist |
-
----
-
-## Project Structure
-
-```
-Agentic_Aesir/
-├── .github/
-│   ├── agents/                    # Agent definition files (.agent.md)
-│   ├── instructions/              # Shared instruction files loaded by agents
-│   │   └── agent-roster.instructions.md
-│   └── copilot-instructions.md    # Workspace-level context for all agents
-└── README.md
+```bash
+/plugin install aesir --marketplace bpelotto/Agentic_Aesir
 ```
 
-Agent files follow the naming convention `<agentname>.agent.md` and are stored in `.github/agents/`. Instruction files in `.github/instructions/` are referenced by agents that need shared domain knowledge (e.g., the full roster, coding conventions, deployment procedures).
+Choose **user** scope when asked so the team is available in every project. Then, once per machine:
 
----
+```bash
+/aesir:setup --user
+```
 
-## Using This as a Harness
+This writes the baseline working agreements to `~/.claude/rules/` and syncs the Copilot agents to `~/.copilot/agents/` (after showing you what it will change).
 
-This repository is designed to be forked and adapted. Common customizations:
+To update later:
 
-**Add an agent:**
-Create `.github/agents/myagent.agent.md` with a role-focused system prompt. Reference the existing agent files for structure and conventions.
+```bash
+/plugin marketplace update agentic-aesir
+```
 
-**Modify an agent:**
-Edit the `.agent.md` file for that agent. Changes take effect immediately in Copilot Chat.
+```bash
+/plugin update aesir@agentic-aesir
+```
 
-**Use a subset of the team:**
-Nothing requires using all agents. Take only the `.agent.md` files relevant to your project and drop them into your own `.github/agents/` directory.
+Developing the plugin itself? Register your clone as a local marketplace and edits take effect after `/reload-plugins`:
 
-**Plug into an existing project:**
-Copy the `.github/agents/` directory and `.github/copilot-instructions.md` into any VS Code workspace. The agents become available in that project's Copilot Chat instance.
+```bash
+claude plugin marketplace add D:/path/to/Agentic_Aesir
+```
 
----
+```bash
+claude plugin install aesir@agentic-aesir
+```
 
-## Guiding Principles
+## Use
 
-- **Start with Odin** — for any multi-faceted or unclear request, invoke Odin to route to the right specialists.
-- **Each agent has a single focus** — do not ask Thor to write blog posts; do not ask Bragi to write code.
-- **Quality over speed** — prefer well-reasoned, well-structured output over quick and sloppy.
-- **Everything feeds the portfolio** — code, blog posts, designs, and research are all portfolio artifacts.
-- **Document the journey** — learning moments, mistakes, and discoveries are content opportunities.
+Describe the task and let Claude route it, or name the agent:
 
----
+```
+Use baldur to review the diff on this branch.
+```
 
-## Contributing
+```
+Have mimir compare Postgres and Cosmos DB for an append-heavy event log.
+```
 
-This is a personal learning project, but ideas, agent definitions, and workflow patterns are welcome as discussions or pull requests.
+In a project, run `/aesir:setup` once to add `AGENTS.md` (shared working agreements, read by Claude Code and Copilot), `CLAUDE.md` (imports it), and a path-scoped .NET rules file if the project is .NET. Run `/aesir:playbook` whenever you want the full picture: when to delegate, what each tier costs, and the standard pipelines.
 
-If you build something interesting with the harness — a new agent, a multi-agent pipeline, a prompt pattern that works well — open a discussion and share it.
+## The team
 
----
+| Agent | Use for | Model | Writes |
+|---|---|---|---|
+| mimir | research, technology comparisons, digests, dependency advisories | sonnet | nothing |
+| tyr | PRDs, user stories, acceptance criteria | sonnet | `docs/specs/` |
+| vidar | architecture, API contracts, ADRs, risk | opus | `docs/adr/` |
+| thor | implementation in any layer, bug fixes | sonnet | code |
+| ull | test strategy and tests at every level | sonnet | tests |
+| baldur | code and security review | opus | nothing (edit tools denied) |
+| aegir | infrastructure, containers, CI/CD, releases | sonnet | infra, workflows |
+| saga | docs, blog posts, release notes, editing | sonnet | docs, content |
+| volva | prompts, agent design, model choice, evals | sonnet | `docs/ai/` |
+
+There is no Odin file. The main Claude session is the orchestrator: it reads the agent descriptions, routes work, and uses plan mode for task breakdown. Subagents start with a fresh context, so the session passes each one a self-contained brief.
+
+## Cost policy, in short
+
+- Do small things inline. Delegate for fan-out, isolation, or a fresh context.
+- Haiku-class to gather, Sonnet to build, Opus to design and review. Each agent carries a default; override per call only with a reason.
+- Skip pipeline steps that do not apply. A one-line fix does not need a spec, an ADR, and a review.
+- Only agent descriptions are loaded every turn. Bodies load on invocation, rules load on matching paths, skills load when called.
+
+## Copilot
+
+VS Code Copilot reads Copilot-format agents from `.github/agents/` (project) or `~/.copilot/agents/` (user). The plugin generates them from the Claude-format source:
+
+```bash
+node scripts/sync-copilot-agents.mjs --target user --prune --dry-run
+```
+
+`/aesir:setup --user` runs this for you. `/aesir:setup --copilot` writes a project-level mirror plus `.github/copilot-instructions.md` and the `.instructions.md` twin of the rules file. Copilot reads `AGENTS.md` directly, so the working agreements are shared without duplication.
+
+## Layout
+
+```
+.claude-plugin/        plugin.json and marketplace.json
+agents/                nine agents (Claude Code subagent format)
+skills/playbook/       /aesir:playbook
+skills/setup/          /aesir:setup and the templates it writes
+scripts/               sync-copilot-agents.mjs
+docs/                  AUDIT.md and three quickstart guides
+AGENTS.md, CLAUDE.md   this repo uses its own template
+```
+
+## Extending
+
+- Override an agent for one project: copy `agents/<name>.md` to `.claude/agents/<name>.md` and edit. Same `name` wins over the plugin's copy.
+- Add an agent: one file, frontmatter `name`, `description` (under 250 characters, say when and when not), `tools`, `model`; body under 60 lines. Every description is loaded into every session, so keep the roster lean.
+- Add a stack: a `.claude/rules/<stack>.md` with `paths:` globs, plus an `.instructions.md` twin with `applyTo:` for Copilot.
+
+## Learn more
+
+- [docs/quickstart-level-1-beginner.md](docs/quickstart-level-1-beginner.md): never used an AI agent before
+- [docs/quickstart-level-2-mid-level.md](docs/quickstart-level-2-mid-level.md): daily Copilot or Claude user, new to multi-agent work
+- [docs/quickstart-level-3-senior-engineer.md](docs/quickstart-level-3-senior-engineer.md): context accounting, cost tuning, limitations
+- [docs/AUDIT.md](docs/AUDIT.md): why 31 agents became 9, where each one went, and the cost model
+
+## Why this exists
+
+A personal learning project and portfolio: learn agentic AI by building with it, prototype real tools, and write about the journey. Ideas, agent definitions, and workflow patterns are welcome as discussions or pull requests.
 
 ## License
 
 [MIT](LICENSE)
-
